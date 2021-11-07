@@ -216,7 +216,7 @@ def getUserToAdmin(userName):
     global Usuarios
     for user in Usuarios:
         if user.userName == userName:
-            print('Usuario encontrado')
+            print(f'user.password')
             objeto = {
                 'name': user.name,
                 'gender': user.gender,
@@ -506,6 +506,20 @@ def getRankedPostUser(userName):
         }
         lista_post.append(objeto)
     return(jsonify({"Mensaje": "Todo correcto", "publicaciones": lista_post}))
+
+# *Eliminar una publicacion por nombre de su id
+
+
+@app.route('/usuarios/publicaciones/<string:id_publicacion>', methods=['DELETE'])
+def deleteUser(id_publicacion):
+    global Usuarios
+    for user in Usuarios:
+        for post in user.obtenerPublicaciones:
+            print(f'id publicacion: {post.id_publicacion}')
+            if post.id_publicacion == id_publicacion:
+                del post
+                return(jsonify({'Mensaje': 'Se elimino la publicación'}))
+    return(jsonify({'Mensaje': 'No se encontró la publicación a eliminar'}))
 
 
 if __name__ == "__main__":
