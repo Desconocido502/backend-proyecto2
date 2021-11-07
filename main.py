@@ -510,8 +510,8 @@ def getRankedPostUser(userName):
 # *Eliminar una publicacion por nombre de su id
 
 
-@app.route('/usuarios/publicaciones/<string:id_publicacion>', methods=['DELETE'])
-def deleteUser(id_publicacion):
+@app.route('/usuarios/publicaciones/<int:id_publicacion>', methods=['DELETE'])
+def deletePost(id_publicacion):
     global Usuarios
     for user in Usuarios:
         for post in user.obtenerPublicaciones:
