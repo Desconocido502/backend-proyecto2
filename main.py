@@ -523,7 +523,7 @@ def deletePost(id_publicacion):
     global Usuarios
     for user in Usuarios:
         for index in range(len(user.obtenerPublicaciones)):
-            if id_publicacion == user.obtenerPublicaciones[index]:
+            if id_publicacion == user.obtenerPublicaciones[index].id_publicacion:
                 del user.obtenerPublicaciones[index]
                 return(jsonify({'Mensaje': 'Se elimino la publicación'}))
     return(jsonify({'Mensaje': 'No se encontró la publicación a eliminar'}))
