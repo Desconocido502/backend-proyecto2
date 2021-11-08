@@ -1,6 +1,5 @@
 from Publicacion import Publicacion
 
-
 class Usuario:
     def __init__(self, name, gender, userName, email, password, publicaciones):
         self._name = name

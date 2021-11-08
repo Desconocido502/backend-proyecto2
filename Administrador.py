@@ -44,5 +44,5 @@ class Administrador:
 if __name__ == '__main__':
     print('Hola')
     administrador1 = Administrador("Carlos", 'Desconocido987',
-                                  'carlos5231fac@gmail.com', '123#4efa')
+                                    'carlos5231fac@gmail.com', '123#4efa')
     print(administrador1)

@@ -35,7 +35,8 @@ Usuarios.append(Usuario('kevin Reyes', 'M', 'KevinR',
                 'reyesK31@gmail.com', '74eds', publicaciones2))
 
 app = Flask(__name__)
-# Agregamos el CORS para que esto no nos de problemas a la hora de comunicarnos con el FRONTEND
+#* Agregamos el CORS para que esto no nos de
+#* problemas a la hora de comunicarnos con el FRONTEND
 CORS(app)
 
 
@@ -57,7 +58,7 @@ def mostrarUsuarios():
     global Usuarios
     for user in Usuarios:
         print(user.password)
-        print('**************************************')
+        print('*****************************')
 
 
 @app.route('/', methods=['GET'])
@@ -114,20 +115,23 @@ def createUser():
     global Usuarios
     if validarUserName(request.json['userName']) == None:
         respuesta = jsonify(
-            {'error': None, "Mensaje": "Dejo vacio el espacio de su nombre de usuario, agregelo!"})
+            {'error': None, 
+                "Mensaje": "Dejo vacio el espacio de su nombre de usuario, agregelo!"})
         return(respuesta)
     elif validarUserName(request.json['userName']) == False:
         respuesta = jsonify(
-            {'error': True, "Mensaje": "Su nombre de usuario debe tener al menos 8 caracteres en los cuales puede llevar numeros mas un simbolo, corrijalo"})
+            {'error': True,
+                "Mensaje": "Su nombre de usuario debe tener al menos 8 caracteres en los cuales puede llevar numeros mas un simbolo, corrijalo"})
         return(respuesta)
     elif validarUserName(request.json['userName']) == True:
         userName = request.json['userName']
         for user in Usuarios:
             if user.userName == userName:
-                return(jsonify({"error": True, "Mensaje": "El nombre de usuario se repite, ingrese otro nombre"}))
+                return(jsonify({"error": True, 
+                                "Mensaje": "El nombre de usuario se repite, ingrese otro nombre"}))
             else:
                 newUser = Usuario(request.json['name'], request.json['gender'],
-                                  request.json['userName'], request.json['email'], request.json['password'], [])
+                                    request.json['userName'], request.json['email'], request.json['password'], [])
                 Usuarios.append(newUser)
                 return(jsonify({"error": False, "Mensaje": "Usuario creado"}))
 
@@ -159,11 +163,13 @@ def updateUser(userNameB):
         if userNameB == Usuarios[i].userName:
             if validarUserName(request.json['userName']) == None:
                 respuesta = jsonify(
-                    {'error': None, "Mensaje": "Dejo vacio el espacio del nombre de su nombre usuario, agregelo!"})
+                    {'error': None, 
+                        "Mensaje": "Dejo vacio el espacio del nombre de su nombre usuario, agregelo!"})
                 return(respuesta)
             elif validarUserName(request.json['userName']) == False:
                 respuesta = jsonify(
-                    {'error': True, "Mensaje": "Su nombre de usuario debe tener al menos 8 caracteres en los cuales puede llevar numeros mas un simbolo, corrijalo"})
+                    {'error': True, 
+                        "Mensaje": "Su nombre de usuario debe tener al menos 8 caracteres en los cuales puede llevar numeros mas un simbolo, corrijalo"})
                 return(respuesta)
             elif validarUserName(request.json['userName']) == True:
                 Usuarios[i].name = request.json['name']
@@ -228,7 +234,7 @@ def getUserToAdmin(userName):
     salida = {"Mensaje": "No existe el usuario con ese nombre"}
     return(jsonify(salida))
 
-# *Datos actulizados por el administrador
+# *Datos actualizados por el administrador
 
 
 @app.route('/admin/updateUsuarios/<string:userNameB>', methods=['PUT'])
@@ -238,11 +244,13 @@ def updateUsuario(userNameB):
         if updateUser.userName == userNameB:
             if validarUserName(request.json['userName']) == None:
                 respuesta = jsonify(
-                    {'error': None, "Mensaje": "Dejo vacio el espacio del nombre de usuario, agregelo!"})
+                    {'error': None, 
+                        "Mensaje": "Dejo vacio el espacio del nombre de usuario, agregelo!"})
                 return(respuesta)
             elif validarUserName(request.json['userName']) == False:
                 respuesta = jsonify(
-                    {'error': True, "Mensaje": "El nombre de usuario debe tener al menos 8 caracteres en los cuales puede llevar numeros mas un simbolo, corrijalo"})
+                    {'error': True, 
+                        "Mensaje": "El nombre de usuario debe tener al menos 8 caracteres"})
                 return(respuesta)
             elif validarUserName(request.json['userName']) == True:
                 # * Se actualizan los datos del usuario
@@ -514,10 +522,9 @@ def getRankedPostUser(userName):
 def deletePost(id_publicacion):
     global Usuarios
     for user in Usuarios:
-        for post in user.obtenerPublicaciones:
-            print(f'id publicacion: {post.id_publicacion}')
-            if post.id_publicacion == id_publicacion:
-                del post
+        for index in range(len(user.obtenerPublicaciones)):
+            if id_publicacion == user.obtenerPublicaciones[index]:
+                del user.obtenerPublicaciones[index]
                 return(jsonify({'Mensaje': 'Se elimino la publicación'}))
     return(jsonify({'Mensaje': 'No se encontró la publicación a eliminar'}))
 
