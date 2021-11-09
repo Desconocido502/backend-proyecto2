@@ -529,6 +529,22 @@ def deletePost(id_publicacion):
                 return(jsonify({'Mensaje': 'Se elimino la publicación'}))
     return(jsonify({'Mensaje': 'No se encontró la publicación a eliminar'}))
 
+#* Modificar una publicacion por su id
+@app.route("/admin/updatePost/<int:id_publicacion>", methods=['PUT'])
+def updatePost(id_publicacion):
+    global Usuarios
+    for user in Usuarios:
+        publicaciones = user.obtenerPublicaciones
+        for x in range(0, len(user.obtenerPublicaciones)):
+            if id_publicacion == publicaciones[x].id_publicacion:
+                publicaciones[x].id_publicacion = request.json['id_publicacion']    
+                publicaciones[x].tipo = request.json['tipo']    
+                publicaciones[x].date = request.json['date']    
+                publicaciones[x].categoria = request.json['categoria']    
+                publicaciones[x].like = request.json['likes']    
+                publicaciones[x].author = request.json['autor']
+                return(jsonify({'Mensaje': 'Se actuliazo la publicación correctamente'}))
+    return(jsonify({'Mensaje': 'No se encontro la publicación'}))
 
 if __name__ == "__main__":
     # Le decimos que el host es 0.0.0.0 para que corra en Localhost
