@@ -537,7 +537,6 @@ def updatePost(id_publicacion):
         publicaciones = user.obtenerPublicaciones
         for x in range(0, len(user.obtenerPublicaciones)):
             if id_publicacion == publicaciones[x].id_publicacion:
-                publicaciones[x].id_publicacion = request.json['id_publicacion']    
                 publicaciones[x].tipo = request.json['tipo']    
                 publicaciones[x].date = request.json['date']    
                 publicaciones[x].categoria = request.json['categoria']    
