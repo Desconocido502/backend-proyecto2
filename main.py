@@ -522,9 +522,10 @@ def getRankedPostUser(userName):
 def deletePost(id_publicacion):
     global Usuarios
     for user in Usuarios:
-        for index in range(len(user.obtenerPublicaciones)):
-            if id_publicacion == user.obtenerPublicaciones[index].id_publicacion:
-                del user.obtenerPublicaciones[index]
+        for post in user.obtenerPublicaciones:
+            print(f'id publicacion: {post.id_publicacion}')
+            if post.id_publicacion == id_publicacion:
+                del post
                 return(jsonify({'Mensaje': 'Se elimino la publicación'}))
     return(jsonify({'Mensaje': 'No se encontró la publicación a eliminar'}))
 
